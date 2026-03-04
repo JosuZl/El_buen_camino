@@ -3,27 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Buen Camino - Josué Zamora</title>
+    <title>El Buen Camino - Plan de Liderazgo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        .transition-all { transition: all 0.3s ease; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen p-4 md:p-8">
-    <div id="app" class="max-w-6xl mx-auto"></div>
+<body class="bg-slate-100 min-h-screen">
+    <div id="root"></div>
 
     <script>
+        // Configuración de Etapas y Datos
         const stages = [
-            { title: "Integridad y Carácter", duration: 21, color: "bg-emerald-500", light: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-500", daily: {
-                1: { read: "Art. 'Integridad vs Reputación'", task: "Define tu 'yo privado' vs 'yo público'", social: "Post: ¿Quién soy cuando nadie me mira?", question: "¿Qué área de mi vida temo que la gente descubra?" },
-                2: { read: "Salmo 139: Examen profundo", task: "Lista tus 3 debilidades mayores", social: "Story: La vulnerabilidad", question: "¿He pedido perdón hoy?" }
-            }},
-            { title: "Sana Doctrina", duration: 30, color: "bg-blue-500", light: "bg-blue-50", text: "text-blue-700", border: "border-blue-500", daily: {
-                22: { read: "9 Marcas: Predicación Expositiva", task: "Busca un sermón expositivo", social: "Video: Biblia en el púlpito", question: "¿Confío en el texto bíblico?" }
-            }}
-            // ... Se pueden seguir sumando los 114 días aquí
+            {
+                title: "Integridad y Carácter",
+                duration: 21,
+                color: "bg-emerald-500",
+                lightColor: "bg-emerald-50",
+                textColor: "text-emerald-700",
+                border: "border-emerald-500",
+                daily: {
+                    1: { read: "Art. 'Integridad vs Reputación' (M. Haurich)", task: "Define tu 'yo privado' vs 'yo público'", social: "Post: ¿Quién soy cuando nadie me mira?", question: "¿Qué área de mi vida temo que la gente descubra?" },
+                    2: { read: "Salmo 139: Examen profundo", task: "Haz una lista de tus 3 debilidades mayores", social: "Story: La vulnerabilidad en el liderazgo", question: "¿He pedido perdón a alguien hoy por falta de coherencia?" },
+                    3: { read: "Libro Swindoll: 'José', Cap 1", task: "Identifica tus 'Pozos' actuales", social: "Video: Los procesos silenciosos de Dios", question: "¿Estoy dispuesto a esperar el tiempo de Dios sin forzar puertas?" },
+                    4: { read: "Manual Liderazgo: 'Liderazgo de Siervo'", task: "Sirve en una tarea oculta en tu casa/iglesia", social: "Post: El poder del delantal vs el poder del púlpito", question: "¿Me molesta que no reconozcan mi servicio?" },
+                    5: { read: "Gálatas 5:22-26 (El Fruto)", task: "Evalúa tu paciencia hoy ante el estrés", social: "Reel: El fruto no se fabrica, se cultiva", question: "¿Qué aspecto del fruto del Espíritu estuvo ausente hoy?" },
+                    6: { read: "Art. 'Autoliderazgo' (P. Hernández)", task: "Escribe tu Misión Personal", social: "Post: Mi brújula para este 2026", question: "¿Mis acciones de hoy me acercaron a mi misión?" },
+                    7: { read: "1 Timoteo 3: Requisitos del Obispo", task: "Contrasta tu vida con los requisitos de Pablo", social: "Story: El estándar no es el éxito, es la fidelidad", question: "¿Cumplo con ser 'irreprensible' en mi hogar?" },
+                    21: { read: "Repaso: El Círculo de Rendición de Cuentas", task: "Reúnete con un mentor real", social: "Post: Final de etapa. Lecciones de integridad", question: "¿Tengo a alguien a quien le confieso todo?" }
+                }
+            },
+            {
+                title: "Sana Doctrina",
+                duration: 30,
+                color: "bg-blue-500",
+                lightColor: "bg-blue-50",
+                textColor: "text-blue-700",
+                border: "border-blue-500",
+                daily: {
+                    22: { read: "9 Marcas (Dever): Marca 1 - Predicación Expositiva", task: "Busca un sermón expositivo y analízalo", social: "Video: ¿Por qué la Biblia debe mandar en el púlpito?", question: "¿Confío más en mis ideas o en el texto bíblico?" },
+                    23: { read: "9 Marcas: Marca 2 - Teología Bíblica", task: "Explica qué es la 'Teología Bíblica' en 2 min", social: "Story: La Biblia no es una enciclopedia, es una historia", question: "¿Veo a Cristo en toda la Escritura?" },
+                    24: { read: "Libro Berkhof: Cap. Atributos de Dios", task: "Lista 5 atributos incomunicables de Dios", social: "Post: Dios es Dios y yo no lo soy", question: "¿Mi oración de hoy reconoció la soberanía de Dios?" },
+                    25: { read: "Art. 'Sana Doctrina' (Melvin Zelaya)", task: "Define 'Inerrancia' con tus palabras", social: "Post: ¿Es la Biblia realmente confiable?", question: "¿Dudo de la veracidad de algún pasaje?" },
+                    51: { read: "Apologética: Defensa de la fe", task: "Responde a una objeción común de fe", social: "Video: Defendiendo la esperanza con mansedumbre", question: "¿Respondo con amor o por ganar una discusión?" }
+                }
+            },
+            {
+                title: "Exégesis Bíblica",
+                duration: 21,
+                color: "bg-purple-500",
+                lightColor: "bg-purple-50",
+                textColor: "text-purple-700",
+                border: "border-purple-500",
+                daily: {
+                    52: { read: "Gordon Fee: Paso 1 - El Contexto Histórico", task: "Elige una perícopa (p.ej. Filp 2:5-11)", social: "Story: Viajando al primer siglo", question: "¿Qué pasaba en Filipos cuando Pablo escribió esto?" },
+                    53: { read: "Guía Exegética: El Mapa de Ruta", task: "Delimita el inicio y fin de tu perícopa", social: "Post: Por qué el contexto es el rey", question: "¿Estoy sacando el texto de su contexto original?" },
+                    54: { read: "Gordon Fee: Análisis de Palabras Clave", task: "Usa un diccionario Strong para 3 verbos clave", social: "Reel: El significado oculto detrás del original", question: "¿Cómo cambia el sentido al entender el verbo original?" }
+                }
+            },
+            {
+                title: "Homilética y Oratoria",
+                duration: 21,
+                color: "bg-orange-500",
+                lightColor: "bg-orange-50",
+                textColor: "text-orange-700",
+                border: "border-orange-500",
+                daily: {
+                    73: { read: "Manual Homilética: El Bosquejo Textual", task: "Crea un bosquejo de 3 puntos de tu perícopa", social: "Post: Estructurando el mensaje de Dios", question: "¿Los puntos fluyen del texto o los impuse yo?" },
+                    74: { read: "Método A.B.R.E. (Génesis Nava)", task: "Escribe una introducción 'gancho'", social: "Video: 3 segundos para captar la atención", question: "¿Mi introducción conecta con una necesidad humana real?" },
+                    75: { read: "Comunicación No Verbal (Lans Dextre)", task: "Grábate 1 minuto y observa tus manos", social: "Story: Lo que mi cuerpo dice mientras predico", question: "¿Mis gestos distraen o enfatizan el mensaje?" }
+                }
+            },
+            {
+                title: "Consejería Pastoral",
+                duration: 21,
+                color: "bg-rose-500",
+                lightColor: "bg-rose-50",
+                textColor: "text-rose-700",
+                border: "border-rose-500",
+                daily: {
+                    94: { read: "Manual Muñoz-Suárez: Fundamentos", task: "Define el rol del consejero vs psicólogo", social: "Post: ¿Por qué necesitamos consejería pastoral?", question: "¿Busco aliviar síntomas o transformar el corazón?" },
+                    95: { read: "Jesús como el Consejero Perfecto", task: "Analiza el encuentro de Jesús con la Samaritana", social: "Video: La pedagogía de las preguntas de Jesús", question: "¿Hago más preguntas o doy más respuestas?" },
+                    96: { read: "La Empatía en el Conflicto (F. Tertusio)", task: "Practica 'Escucha Activa' con un amigo hoy", social: "Story: El poder de sentirse escuchado", question: "¿Escuché para entender o escuché para responder?" }
+                }
+            }
         ];
 
         let selectedDay = 1;
@@ -38,64 +104,188 @@
                 }
                 dayInStage -= stages[i].duration;
             }
+
             const stage = stages[currentStageIdx];
-            const specific = stage.daily[absDay] || { read: "Estudio Profundo", task: "Repaso del bloque", social: "Reflexión del día", question: "¿Cómo aplico esto hoy?" };
-            return { ...specific, ...stage, dayInStage, stageIdx: currentStageIdx };
+            const specific = stage.daily[absDay] || { 
+                read: "Repaso y Profundización del Bloque", 
+                task: "Consolidar las notas de la semana en Notion/Cuaderno", 
+                social: "Review: 'Lo que más me costó esta semana'", 
+                question: "¿Cómo ha cambiado mi perspectiva hoy?" 
+            };
+
+            const date = new Date(2026, 2, 4);
+            date.setDate(date.getDate() + absDay - 1);
+
+            return {
+                ...specific,
+                stageTitle: stage.title,
+                dayInStage,
+                stageColor: stage.color,
+                stageLightColor: stage.lightColor,
+                stageTextColor: stage.textColor,
+                stageBorder: stage.border,
+                stageIdx: currentStageIdx,
+                dateString: date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })
+            };
         }
 
         function render() {
             const data = getDayData(selectedDay);
-            const app = document.getElementById('app');
+            const root = document.getElementById('root');
             
-            app.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <div class="lg:col-span-5 space-y-6">
-                        <div class="bg-white rounded-[2rem] p-6 shadow-xl border border-white">
-                            <div class="flex justify-between items-center mb-6">
-                                <h2 class="font-black text-slate-800">RUTA DE APRENDIZAJE</h2>
-                                <span class="bg-slate-100 px-3 py-1 rounded-full text-xs font-bold">DÍA ${selectedDay} / 114</span>
-                            </div>
-                            <div class="grid grid-cols-7 gap-2">
-                                ${Array.from({length: data.duration}).map((_, i) => {
-                                    const dayNum = (selectedDay - data.dayInStage + 1) + i;
-                                    return `<button onclick="setDay(${dayNum})" class="aspect-square rounded-xl text-xs font-bold ${dayNum === selectedDay ? data.color + ' text-white' : 'bg-slate-50 text-slate-400'}">${i+1}</button>`;
-                                }).join('')}
-                            </div>
+            root.innerHTML = `
+                <div class="p-4 md:p-8 selection:bg-indigo-100">
+                    <div class="max-w-6xl mx-auto">
+                        
+                        <div class="flex flex-wrap justify-center gap-3 mb-8">
+                            ${stages.map((s, idx) => {
+                                const isActive = data.stageIdx === idx;
+                                return `
+                                    <button onclick="setStage(${idx})" class="px-6 py-3 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 shadow-sm ${isActive ? s.color + ' text-white scale-105 shadow-md' : 'bg-white text-slate-400 border border-slate-200'}">
+                                        <span class="w-5 h-5 flex items-center justify-center rounded-full text-[10px] ${isActive ? 'bg-white/20' : 'bg-slate-100'}">${idx + 1}</span>
+                                        <span class="hidden sm:inline">${s.title}</span>
+                                    </button>
+                                `;
+                            }).join('')}
                         </div>
-                    </div>
 
-                    <div class="lg:col-span-7 space-y-6">
-                        <div class="bg-white rounded-[2rem] p-8 shadow-xl">
-                            <h4 class="${data.text} text-xs font-black uppercase tracking-widest mb-2">${data.title}</h4>
-                            <h1 class="text-3xl font-black text-slate-900 mb-8">Misión del Día</h1>
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                                    <i data-lucide="book-open" class="text-indigo-500 mb-2"></i>
-                                    <h5 class="font-black text-xs text-slate-400 mb-1">LECTURA</h5>
-                                    <p class="font-bold text-slate-700">${data.read}</p>
+                            <div class="lg:col-span-5 space-y-6">
+                                <div class="bg-white rounded-[2rem] p-6 shadow-xl border border-white">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <h2 class="text-xl font-black text-slate-800 tracking-tight uppercase">Ruta de Aprendizaje</h2>
+                                        <div class="flex items-center text-slate-400 text-sm font-bold bg-slate-50 px-3 py-1 rounded-full">
+                                            DÍA ${selectedDay} / 114
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-7 gap-2">
+                                        ${Array.from({ length: stages[data.stageIdx].duration }).map((_, i) => {
+                                            const startDay = stages.slice(0, data.stageIdx).reduce((a, b) => a + b.duration, 0) + 1;
+                                            const currentBtnDay = startDay + i;
+                                            const isPast = currentBtnDay < selectedDay;
+                                            const isSelected = currentBtnDay === selectedDay;
+                                            
+                                            return `
+                                                <button onclick="setDay(${currentBtnDay})" class="aspect-square rounded-2xl text-xs font-black transition-all relative overflow-hidden ${isSelected ? data.stageColor + ' text-white ring-4 ring-offset-2 ' + data.stageBorder.replace('border-', 'ring-') : isPast ? 'bg-slate-100 text-slate-400 opacity-60' : 'bg-slate-50 text-slate-600 hover:bg-slate-200'}">
+                                                    ${i + 1}
+                                                    ${isPast ? '<i data-lucide="check-circle" class="absolute top-1 right-1 w-2 h-2 text-emerald-500"></i>' : ''}
+                                                </button>
+                                            `;
+                                        }).join('')}
+                                    </div>
                                 </div>
-                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                                    <i data-lucide="camera" class="text-pink-500 mb-2"></i>
-                                    <h5 class="font-black text-xs text-slate-400 mb-1">BITÁCORA</h5>
-                                    <p class="font-bold text-slate-700">${data.social}</p>
+
+                                <div class="bg-indigo-900 rounded-[2rem] p-8 text-white relative overflow-hidden shadow-2xl">
+                                    <div class="relative z-10">
+                                        <div class="flex items-center gap-2 mb-2 opacity-70">
+                                            <i data-lucide="target" class="w-4 h-4"></i>
+                                            <span class="text-xs font-bold uppercase tracking-widest">Enfoque Actual</span>
+                                        </div>
+                                        <h3 class="text-2xl font-black mb-4 leading-tight">${data.stageTitle}</h3>
+                                        <div class="space-y-4">
+                                            <div class="flex justify-between text-xs font-bold mb-2">
+                                                <span>Progreso del bloque</span>
+                                                <span>${Math.round((data.dayInStage / stages[data.stageIdx].duration) * 100)}%</span>
+                                            </div>
+                                            <div class="h-3 bg-indigo-950/50 rounded-full overflow-hidden border border-indigo-800/30">
+                                                <div class="h-full bg-indigo-400 transition-all duration-700 shadow-[0_0_15px_rgba(129,140,248,0.5)]" style="width: ${(data.dayInStage / stages[data.stageIdx].duration) * 100}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
                                 </div>
                             </div>
 
-                            <div class="mt-8 flex gap-4">
-                                <button onclick="changeDay(-1)" class="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-slate-500 hover:bg-slate-200 transition">ANTERIOR</button>
-                                <button onclick="changeDay(1)" class="flex-1 py-4 ${data.color} text-white rounded-2xl font-black shadow-lg shadow-current/30 hover:scale-105 transition">SIGUIENTE</button>
+                            <div class="lg:col-span-7 space-y-6">
+                                <div class="bg-white rounded-[2rem] p-8 shadow-xl border border-white">
+                                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                                        <div>
+                                            <h4 class="text-sm font-black uppercase tracking-widest mb-1 ${data.stageTextColor}">${data.dateString}</h4>
+                                            <h1 class="text-3xl font-black text-slate-900">Misión del Día</h1>
+                                        </div>
+                                        <div class="${data.stageLightColor} ${data.stageTextColor} px-4 py-2 rounded-2xl text-sm font-black border border-current/10">
+                                            DIA ${selectedDay}
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:border-indigo-200 transition-all">
+                                            <div class="flex items-center gap-3 mb-4">
+                                                <div class="p-2 bg-indigo-100 text-indigo-600 rounded-xl"><i data-lucide="book-open" class="w-5 h-5"></i></div>
+                                                <h5 class="font-black text-slate-800">LECTURA TÉCNICA</h5>
+                                            </div>
+                                            <p class="text-slate-600 font-bold mb-2">${data.read}</p>
+                                        </div>
+                                        <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:border-pink-200 transition-all">
+                                            <div class="flex items-center gap-3 mb-4">
+                                                <div class="p-2 bg-pink-100 text-pink-600 rounded-xl"><i data-lucide="camera" class="w-5 h-5"></i></div>
+                                                <h5 class="font-black text-slate-800">BITÁCORA REDES</h5>
+                                            </div>
+                                            <p class="text-slate-600 font-bold mb-2">${data.social}</p>
+                                        </div>
+                                        <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:border-emerald-200 transition-all">
+                                            <div class="flex items-center gap-3 mb-4">
+                                                <div class="p-2 bg-emerald-100 text-emerald-600 rounded-xl"><i data-lucide="message-square" class="w-5 h-5"></i></div>
+                                                <h5 class="font-black text-slate-800">RETO PRÁCTICO</h5>
+                                            </div>
+                                            <p class="text-slate-600 font-bold mb-2">${data.task}</p>
+                                        </div>
+                                        <div class="p-6 bg-slate-900 rounded-3xl border border-slate-800 hover:border-yellow-500/30 transition-all">
+                                            <div class="flex items-center gap-3 mb-4">
+                                                <div class="p-2 bg-yellow-500 text-slate-900 rounded-xl"><i data-lucide="help-circle" class="w-5 h-5"></i></div>
+                                                <h5 class="font-black text-white uppercase text-xs tracking-widest">Examen de Corazón</h5>
+                                            </div>
+                                            <p class="text-slate-300 font-bold leading-tight italic">"${data.question}"</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-4 mt-8 pt-6 border-t border-slate-100">
+                                        <button onclick="changeDay(-1)" ${selectedDay === 1 ? 'disabled' : ''} class="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-sm hover:bg-slate-200 disabled:opacity-30 flex items-center justify-center gap-2 transition-all">
+                                            <i data-lucide="chevron-left" class="w-4 h-4"></i> ANTERIOR
+                                        </button>
+                                        <button onclick="changeDay(1)" ${selectedDay === 114 ? 'disabled' : ''} class="flex-1 py-4 ${data.stageColor} text-white rounded-2xl font-black text-sm shadow-lg shadow-current/30 hover:scale-[1.02] flex items-center justify-center gap-2 transition-all">
+                                            SIGUIENTE <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 rounded-[2rem] ${data.stageLightColor} border-2 border-dashed ${data.stageBorder.replace('border-', 'border-')}/30 flex gap-4 items-start">
+                                    <div class="p-3 rounded-2xl ${data.stageColor} text-white shrink-0 shadow-lg shadow-current/20">
+                                        <i data-lucide="lock" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="font-black text-sm mb-1 ${data.stageTextColor}">REGLA DE ORO DE ESTE BLOQUE</h6>
+                                        <p class="text-sm text-slate-600 leading-relaxed font-medium">"Recuerda Josué: la comunicación sin carácter es solo ruido. Si hoy no lograste la meta de la integridad, no publiques nada técnico. Vuelve al examen de corazón."</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
+            // Reiniciar iconos después de renderizar
             lucide.createIcons();
         }
 
-        window.setDay = (d) => { selectedDay = d; render(); };
-        window.changeDay = (n) => { selectedDay = Math.max(1, Math.min(114, selectedDay + n)); render(); };
+        function setDay(d) {
+            selectedDay = d;
+            render();
+        }
 
+        function changeDay(n) {
+            selectedDay = Math.max(1, Math.min(114, selectedDay + n));
+            render();
+        }
+
+        function setStage(idx) {
+            const startDay = stages.slice(0, idx).reduce((a, b) => a + b.duration, 0) + 1;
+            selectedDay = startDay;
+            render();
+        }
+
+        // Ejecución inicial
         render();
     </script>
 </body>
