@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan 114 Días - Josué Zamora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-10">
+    <div id="app" class="max-w-6xl mx-auto p-4 md:p-8">
+        </div>
+
+    <script>
+        // Lógica de datos (Las etapas que definimos)
+        const stages = [
+            { title: "Integridad y Carácter", duration: 21, color: "bg-emerald-500", light: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-500", daily: { 1: { read: "Art. 'Integridad vs Reputación'", task: "Define tu 'yo privado' vs 'yo público'", social: "Post: ¿Quién soy cuando nadie me mira?", question: "¿Qué área de mi vida temo que la gente descubra?" } } },
+            { title: "Sana Doctrina", duration: 30, color: "bg-blue-500", light: "bg-blue-50", text: "text-blue-700", border: "border-blue-500", daily: { 22: { read: "9 Marcas: Predicación Expositiva", task: "Analiza un sermón", social: "Video: La Biblia manda en el púlpito", question: "¿Confío más en mis ideas o en el texto?" } } }
+            // ... (Aquí puedes añadir los 114 días)
+        ];
+
+        let selectedDay = 1;
+
+        function render() {
+            const root = document.getElementById('app');
+            // Aquí el script genera el HTML igualito al que viste antes
+            // Usando plantillas de JavaScript para que los botones funcionen
+            root.innerHTML = `
+                <div class="bg-white rounded-[2rem] p-8 shadow-xl">
+                    <h1 class="text-3xl font-black text-slate-900">Misión Día ${selectedDay}</h1>
+                    <p class="text-slate-500 mb-6">Plan de Liderazgo 2026</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="changeDay(-1)" class="bg-slate-200 p-4 rounded-xl font-bold">ANTERIOR</button>
+                        <button onclick="changeDay(1)" class="bg-indigo-600 text-white p-4 rounded-xl font-bold">SIGUIENTE</button>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function changeDay(offset) {
+            selectedDay = Math.max(1, Math.min(114, selectedDay + offset));
+            render();
+        }
+
+        render();
+    </script>
+</body>
+</html>
